@@ -6,9 +6,9 @@ phone:        +84 32 891 8634
 email:        "tuanlekhac@outlook.com"
 linkedin:     tuanlekhac
 date:         "`r format(Sys.time(), '%B %Y')`"
-output:       function(...) {   source('tuan_cust_price_entries.R')
+output:       function(...) {   source('./customization/vitae_customization.R')
                           ;vitae:::set_entry_formats(price_entries)
-                          ;vitae::cv_document(...   , template = "tuan_custome_pricetemplate.tex"
+                          ;vitae::cv_document(...   , template = "./customization/latex_customization.tex"
                                                     , citation_package = "biblatex")
                                         }
 
@@ -24,7 +24,7 @@ library(rlang)
 ```
 ```{r loadData}
 # Education
-education <- readxl::read_xlsx("../data/education.xlsx",
+education <- readxl::read_xlsx("./data/education.xlsx",
                                 1)  %>%
   as_tibble() %>%
   mutate(
@@ -32,11 +32,11 @@ education <- readxl::read_xlsx("../data/education.xlsx",
     end = as.Date(end, format = "%m/%d/%y")
   )
 # Education_detail
-education_detail <- readxl::read_xlsx("../data/education_detail.xlsx",
+education_detail <- readxl::read_xlsx("./data/education_detail.xlsx",
                                 1)  %>%
   as_tibble()
 # Job titles
-job.titles <- readxl::read_xlsx("../data/job-titles.xlsx",
+job.titles <- readxl::read_xlsx("./data/job-titles.xlsx",
                                 1) %>%
   as_tibble() %>%
   mutate(
@@ -45,11 +45,11 @@ job.titles <- readxl::read_xlsx("../data/job-titles.xlsx",
   )
 # Job descriptions
 job.descriptions <-
-  readxl::read_xlsx("../data/job-descriptions.xlsx",
+  readxl::read_xlsx("./data/job-descriptions.xlsx",
                                 1) %>%
   as_tibble()
 # Skills
-skills <-  readxl::read_xlsx("../data/skills.xlsx",
+skills <-  readxl::read_xlsx("./data/skills.xlsx",
                             1) %>%
   as_tibble()
 ```
