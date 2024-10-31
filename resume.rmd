@@ -7,7 +7,7 @@ email:        "tuanlekhac@outlook.com"
 linkedin:     tuanlekhac
 date:         "`r format(Sys.time(), '%B %Y')`"
 output:       function(...) {   source('./customization/vitae_customization.R')
-                          ;vitae:::set_entry_formats(price_entries)
+                          ;vitae:::set_entry_formats(tuanlk_entries)
                           ;vitae::cv_document(...   , template = "./customization/latex_customization.tex"
                                                     , citation_package = "biblatex")
                                         }

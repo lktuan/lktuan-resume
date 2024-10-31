@@ -1,6 +1,6 @@
 # Tuan Le Khac's Résumé
 
-Buidling a data-driven CV template using R Markdown and the vitae package. 
+Buidling a data-driven CV template using R Markdown and the `vitae` package. 
 The CV content is stored in separate data files, making it easy to update and maintain.
 
 ## Prerequisites
