@@ -1,0 +1,121 @@
+---
+name:         Tuan Le Khac
+jobtitle:     "Senior Data analyst | Risk management"
+address:      "HCMC, SR Vietnam"
+phone:        +84 32 891 8634
+email:        "tuanlekhac@outlook.com"
+linkedin:     tuanlekhac
+date:         "`r format(Sys.time(), '%B %Y')`"
+output:       function(...) {   source('tuan_cust_price_entries.R')
+                          ;vitae:::set_entry_formats(price_entries)
+                          ;vitae::cv_document(...   , template = "tuan_custome_pricetemplate.tex"
+                                                    , citation_package = "biblatex")
+                                        }
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(vitae)
+library(lubridate)
+library(glue)
+library(rlang)
+```
+```{r loadData}
+# Education
+education <- readxl::read_xlsx("../data/education.xlsx",
+                                1)  %>%
+  as_tibble() %>%
+  mutate(
+    begin = as.Date(begin, format = "%m/%d/%y"),
+    end = as.Date(end, format = "%m/%d/%y")
+  )
+# Education_detail
+education_detail <- readxl::read_xlsx("../data/education_detail.xlsx",
+                                1)  %>%
+  as_tibble()
+# Job titles
+job.titles <- readxl::read_xlsx("../data/job-titles.xlsx",
+                                1) %>%
+  as_tibble() %>%
+  mutate(
+    begin = as.Date(begin, format = "%m/%d/%y"),
+    end = as.Date(end, format = "%m/%d/%y")
+  )
+# Job descriptions
+job.descriptions <-
+  readxl::read_xlsx("../data/job-descriptions.xlsx",
+                                1) %>%
+  as_tibble()
+# Skills
+skills <-  readxl::read_xlsx("../data/skills.xlsx",
+                            1) %>%
+  as_tibble()
+```
+
+# About me
+
+-   A dynamic and dedicated person, experienced in external audit & corporate finance, and currently working in the risk management field;
+
+-   Long-term goal is to continuously accumulate knowledge of the market, operation, risk & strategy in banking & finance, strengthen data analytic skills to provide data-driven business solutions, and contribute to the organization.
+
+# Education
+```{r education, results = "asis"}
+education %>% 
+  # Format as detailed entries
+  left_join(education_detail) %>% 
+  arrange(descid) %>% 
+  detailed_entries(
+    what = degree,
+    when = as.character(
+      glue("{month(begin, label = TRUE, abbr = TRUE)} {year(begin)} - {month(end, label = TRUE, abbr = TRUE)} {year(end)}")),
+    with = university,
+    where = glue("{city}, {country}"),
+    why = accomplishments)
+```
+# Work experience
+```{r experience}
+job.titles %>% 
+  # Only 5 most recent jobs
+  arrange(desc(begin)) %>% 
+  filter(year(begin) >= 2010) %>%
+  # Join job descriptions
+  left_join(job.descriptions) %>% 
+  # Arrange by descending begin date
+  arrange(desc(begin), descId) %>% 
+  # Format as detailed entries
+  detailed_entries(
+    what = position,
+    when = as.character(
+      glue("{month(begin, label = TRUE, abbr = TRUE)} {year(begin)} - 
+           {if_else(!is.na(end), 
+           paste(month(end, label = TRUE, abbr = TRUE), year(end)), 'Present')}")),
+    with = glue("{department} - {employer}"),
+    where = glue("{city}, {country}"),
+    why = accomplishments)
+```
+
+
+# Skills
+```{r}
+skills_formatted <- skills %>% 
+  arrange(order) %>% 
+  mutate(skill = if_else(is.na(details)|details=="", glue("{skill}"), glue("{skill} ({details})"))) %>% 
+  group_by(group, order) %>% 
+  summarize(skills = glue_collapse(skill, sep = " $\\bullet$ ")) %>% 
+  arrange(order)
+```
+
+```{r, results='asis', width = 40000}
+for (group in skills_formatted$group) {
+  cat(
+    glue("\\textbf{<<tools::toTitleCase(group)>>}:", .open = "<<", .close = ">>"),
+    filter(skills_formatted, group == !!group)$skills,
+    "\n\n\n"
+  )
+}
+```
+
+# Languages
+  Vietnamese, English, Chinese Mandarin (HSK5 equivalent).
