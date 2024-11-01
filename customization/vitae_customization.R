@@ -15,7 +15,7 @@ tuanlk_entries <- vitae:::new_entry_formats(
     why <- lapply(why, function(x) {
       if(length(x) == 0) return("\\empty%")
       paste(c(
-        "\\vspace{0.1cm}\\begin{minipage}{0.7\\textwidth}%",
+        "\\vspace{0.1cm}\\begin{minipage}{0.75\\textwidth}%",
         "\\begin{itemize}[leftmargin=*]%",
         paste0("\\item ", x, "%"),
         "\\end{itemize}%",

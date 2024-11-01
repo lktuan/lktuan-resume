@@ -1,6 +1,6 @@
 ---
 name:         Tuan Le Khac
-jobtitle:     "Senior Data analyst | Risk management"
+jobtitle:     "Senior Data Analyst | Risk Management"
 address:      "HCMC, SR Vietnam"
 phone:        +84 32 891 8634
 email:        "tuanlekhac@outlook.com"
@@ -10,8 +10,7 @@ output:       function(...) {   source('./customization/vitae_customization.R')
                           ;vitae:::set_entry_formats(tuanlk_entries)
                           ;vitae::cv_document(...   , template = "./customization/latex_customization.tex"
                                                     , citation_package = "biblatex")
-                                        }
-
+                                        
 ---
 
 ```{r setup, include=FALSE}
@@ -54,27 +53,13 @@ skills <-  readxl::read_xlsx("./data/skills.xlsx",
   as_tibble()
 ```
 
-# About me
 
--   A dynamic and dedicated person, experienced in external audit & corporate finance, and currently working in the risk management field;
 
--   Long-term goal is to continuously accumulate knowledge of the market, operation, risk & strategy in banking & finance, strengthen data analytic skills to provide data-driven business solutions, and contribute to the organization.
+# Professional Summary
 
-# Education
-```{r education, results = "asis"}
-education %>% 
-  # Format as detailed entries
-  left_join(education_detail) %>% 
-  arrange(descid) %>% 
-  detailed_entries(
-    what = degree,
-    when = as.character(
-      glue("{month(begin, label = TRUE, abbr = TRUE)} {year(begin)} - {month(end, label = TRUE, abbr = TRUE)} {year(end)}")),
-    with = university,
-    where = glue("{city}, {country}"),
-    why = accomplishments)
-```
-# Work experience
+Results-driven data analyst with extensive experience in risk management and SME lending, backed by a foundation in external audit and corporate finance. Proven expertise in developing credit risk models, portfolio analytics, and data-driven solutions. Seeking to leverage advanced analytics capabilities and banking domain knowledge to drive strategic risk management decisions.
+
+# Work Experience
 ```{r experience}
 job.titles %>% 
   # Only 5 most recent jobs
@@ -96,8 +81,22 @@ job.titles %>%
     why = accomplishments)
 ```
 
+# Education
+```{r education, results = "asis"}
+education %>% 
+  # Format as detailed entries
+  left_join(education_detail) %>% 
+  arrange(descid) %>% 
+  detailed_entries(
+    what = degree,
+    when = as.character(
+      glue("{month(begin, label = TRUE, abbr = TRUE)} {year(begin)} - {month(end, label = TRUE, abbr = TRUE)} {year(end)}")),
+    with = university,
+    where = glue("{city}, {country}"),
+    why = accomplishments)
+```
 
-# Skills
+# Technical Skills
 ```{r}
 skills_formatted <- skills %>% 
   arrange(order) %>% 
@@ -118,4 +117,5 @@ for (group in skills_formatted$group) {
 ```
 
 # Languages
-  Vietnamese, English, Chinese Mandarin (HSK5 equivalent).
+
+Vietnamese (Native) • English (Fluent) • Chinese Mandarin (HSK 5).
