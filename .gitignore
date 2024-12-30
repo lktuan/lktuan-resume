@@ -1,5 +1,5 @@
 # Sync tex zip file
-/*.synctex.gz
+*.synctex.gz
 
 # History files
 .Rhistory
