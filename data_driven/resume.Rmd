@@ -6,9 +6,9 @@ phone:        +84 32 891 8634
 email:        "tuanlekhac@outlook.com"
 linkedin:     tuanlekhac
 date:         "`r format(Sys.time(), '%B %Y')`"
-output:       function(...) {   source('./customization/vitae_customization.R')
+output:       function(...) {   source('./data_driven/customization/vitae_customization.R')
                           ;vitae:::set_entry_formats(tuanlk_entries)
-                          ;vitae::cv_document(...   , template = "./customization/latex_customization.tex"
+                          ;vitae::cv_document(...   , template = "./data_driven/customization/latex_customization.tex"
                                                     , citation_package = "biblatex")
                                         
 ---
